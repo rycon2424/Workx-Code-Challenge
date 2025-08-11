@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,15 +18,43 @@ namespace Challenge.Inventory
         [SerializeField] private RectTransform panelSize;
         [SerializeField] private GameObject slotPrefab;
 
+        [Header("UI Item Selection")]
+        [SerializeField] private GameObject selectionWindow;
+        [SerializeField] private Image selectionBackground;
+        [SerializeField] private TMP_Text selectedTitle;
+        [SerializeField] private TMP_Text selectedDescription;
+        [SerializeField] private Image selectedArt;
+
+        private InventoryItem selectedItem;
+
         private List<InventorySlot> generatedEmptySlots = new List<InventorySlot>();
 
-        private void Start()
+        public void InitialSetup()
         {
+            CloseSelectionWindow();
+
             SetupGrid();
         }
 
+        public void CloseSelectionWindow()
+        {
+            selectionWindow.SetActive(false);
+        }
+
+        public void SelectItemInInventory(InventoryItem itemSelected)
+        {
+            selectionWindow.SetActive(true);
+
+            selectedItem = itemSelected;
+
+            selectedTitle.text = selectedItem.ItemInformation.GetItemName();
+            selectedDescription.text = selectedItem.ItemInformation.GetDescription();
+            selectedArt.sprite = selectedItem.ItemInformation.GetItemArt();
+            selectionBackground.color = selectedItem.ItemInformation.GetItemColor();
+        }
+
         [Button("Regenerate Grid")]
-        private void SetupGrid()
+        public void SetupGrid()
         {
             UpdateGridSlots();
             UpdateGridPanel();
@@ -68,6 +97,16 @@ namespace Challenge.Inventory
             }
 
             InventoryManager.Singleton.SetSlots(generatedEmptySlots);
+        }
+
+        // Unity Button Events
+
+        // Called/Assigned on a Unity Canvas Button
+        public void Button_DropItem()
+        {
+            selectionWindow.SetActive(false);
+
+            InventoryManager.Singleton.DropInventoryItem(selectedItem.CurrentSlot);
         }
     }
 }

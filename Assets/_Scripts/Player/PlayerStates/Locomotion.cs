@@ -21,6 +21,8 @@ namespace Challenge.Player.States
             Owner.PlayerInput.Player.Movement.performed += MovementPerformed;
             Owner.PlayerInput.Player.Movement.canceled += MovementPerformed;
 
+            Owner.PlayerInput.Player.Interact.started += Owner.PlayerPickupHandler.PickUpItem;
+
             Owner.PlayerInput.Player.Inventory.started += OpenInventory;
         }
 
@@ -30,6 +32,8 @@ namespace Challenge.Player.States
 
             Owner.PlayerInput.Player.Movement.performed -= MovementPerformed;
             Owner.PlayerInput.Player.Movement.canceled += MovementPerformed;
+
+            Owner.PlayerInput.Player.Interact.started -= Owner.PlayerPickupHandler.PickUpItem;
 
             Owner.PlayerInput.Player.Inventory.started -= OpenInventory;
         }

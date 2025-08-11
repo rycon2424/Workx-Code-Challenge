@@ -77,6 +77,12 @@ namespace Challenge.Inventory
             }
         }
 
+        // Called/Assigned on a Unity Canvas Button
+        public void Button_OnClicked()
+        {
+            InventoryManager.Singleton.InventoryVisual.SelectItemInInventory(this);
+        }
+
         // Getters/Setters
 
         public int CurrentItemCount

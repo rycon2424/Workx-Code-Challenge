@@ -85,9 +85,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3765774166107424724}
   - component: {fileID: -9122610438503990026}
+  - component: {fileID: 1831294772491362158}
   - component: {fileID: 3921982919182061217}
   - component: {fileID: 6458577065542801112}
-  - component: {fileID: 1831294772491362158}
   - component: {fileID: 2387227061038683429}
   m_Layer: 5
   m_Name: Inventory_Item
@@ -130,48 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 731e8f3a7e47ee24b87354c31874abb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentItemCount: 0
   itemInformation: {fileID: 0}
   stackCount: {fileID: 4936410128886586734}
   itemArt: {fileID: 840681094888183248}
   itemBackground: {fileID: 6458577065542801112}
---- !u!222 &3921982919182061217
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7427652034427990713}
-  m_CullTransparentMesh: 1
---- !u!114 &6458577065542801112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7427652034427990713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &1831294772491362158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +178,57 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6458577065542801112}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -9122610438503990026}
+        m_TargetAssemblyTypeName: Challenge.Inventory.InventoryItem, Assembly-CSharp
+        m_MethodName: Button_OnClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!222 &3921982919182061217
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427652034427990713}
+  m_CullTransparentMesh: 1
+--- !u!114 &6458577065542801112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427652034427990713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
       m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!225 &2387227061038683429
 CanvasGroup:
   m_ObjectHideFlags: 0

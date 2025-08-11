@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bc1bade16c749f4e84ce6955d29701e, type: 3}
   m_Name: Item_CD
   m_EditorClassIdentifier: 
-  maxStackCount: 12
+  itemName: Old Disc
+  description: A very old disc, looks useless, probably is useless.
+  maxStackCount: 4
   art: {fileID: -2011196414, guid: 456e24d06a72292418c6cc8d1b8e04e4, type: 3}
   backgroundColor: {r: 0.5451425, g: 1, b: 0.48584908, a: 1}

@@ -14,10 +14,12 @@ namespace Challenge.Player
         private PlayerInput playerInput;
         private StateMachine playerStateMachine;
         private CharacterController playerCharacterController;
+        private PlayerPickupHandler playerPickupHandler;
 
         private void Start()
         {
             playerCharacterController = GetComponent<CharacterController>();
+            playerPickupHandler = GetComponent<PlayerPickupHandler>();
 
             SetupInput();
             SetupStateMachine();
@@ -54,6 +56,11 @@ namespace Challenge.Player
         public StateMachine PlayerStateMachine
         {
             get { return playerStateMachine; }
+        }
+
+        public PlayerPickupHandler PlayerPickupHandler
+        {
+            get { return playerPickupHandler; }
         }
 
         public CharacterController PlayerCharacterController
