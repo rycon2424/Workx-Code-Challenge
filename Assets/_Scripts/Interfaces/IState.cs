@@ -6,9 +6,9 @@ namespace Challenge.StateMachines
 {
     public interface IState
     {
-        void OnStateEnter();
-        void OnStateUpdate();
-        void OnStateExit();
-        void OnStateFixedUpdate();
+        public void OnStateEnter();
+        public void OnStateUpdate();
+        public void OnStateExit();
+        public void OnStateFixedUpdate();
     }
 }
