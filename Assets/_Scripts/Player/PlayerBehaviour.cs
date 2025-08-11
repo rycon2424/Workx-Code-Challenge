@@ -1,18 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Challenge.StateMachines;
+using Challenge.Player.States;
 
-public class PlayerBehaviour : MonoBehaviour
+namespace Challenge.Player
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerBehaviour : MonoBehaviour
     {
-        
-    }
+        [Header("Player Stats")]
+        public float speed = 2;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private PlayerInput playerInput;
+        private StateMachine playerStateMachine;
+        private CharacterController playerCharacterController;
+
+        private void Start()
+        {
+            playerCharacterController = GetComponent<CharacterController>();
+
+            SetupInput();
+            SetupStateMachine();
+        }
+
+        void SetupInput()
+        {
+            playerInput = new PlayerInput();
+            playerInput.Enable();
+        }
+
+        void SetupStateMachine()
+        {
+            playerStateMachine = new StateMachine();
+
+            Locomotion locomotionState = new Locomotion(this);
+            InventoryViewing inventorystate = new InventoryViewing(this);
+
+            playerStateMachine.AddState(locomotionState, inventorystate);
+            playerStateMachine.SwitchState(locomotionState);
+        }
+
+        private void Update()
+        {
+            playerStateMachine.StateUpdate();
+        }
+
+        // Getters / Setters
+        public PlayerInput PlayerInput
+        {
+            get { return playerInput; }
+        }
+
+        public StateMachine PlayerStateMachine
+        {
+            get { return playerStateMachine; }
+        }
+
+        public CharacterController PlayerCharacterController
+        {
+            get { return playerCharacterController; }
+        }
     }
 }

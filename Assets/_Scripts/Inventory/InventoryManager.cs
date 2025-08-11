@@ -10,6 +10,7 @@ namespace Challenge.Inventory
     {
         public static InventoryManager Singleton;
 
+        [SerializeField] private GameObject inventory;
         [SerializeField] private GameObject itemPrefab;
 
         private List<InventorySlot> inventorySlotList = new List<InventorySlot>();
@@ -21,6 +22,11 @@ namespace Challenge.Inventory
                 Destroy(Singleton.gameObject);
             }
             Singleton = this;
+        }
+
+        public void OpenCloseInventory(bool open)
+        {
+            inventory.SetActive(open);
         }
 
         [Button]

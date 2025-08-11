@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Challenge.StateMachine
+namespace Challenge.StateMachines
 {
     public class StateMachine
     {
@@ -55,9 +55,12 @@ namespace Challenge.StateMachine
             currentState?.OnStateEnter();
         }
 
-        public void AddState(IState state)
+        public void AddState(params IState[] states)
         {
-            stateCollection.Add(state.GetType(), state);
+            foreach (IState state in states)
+            {
+                stateCollection.Add(state.GetType(), state);
+            }
         }
 
         public bool IsInState(System.Type state)

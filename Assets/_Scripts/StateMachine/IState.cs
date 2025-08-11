@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Challenge.StateMachine
+namespace Challenge.StateMachines
 {
     public interface IState
     {

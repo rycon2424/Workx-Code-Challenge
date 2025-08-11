@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Challenge.StateMachine
+namespace Challenge.StateMachines
 {
     public abstract class State<T> : IState where T : MonoBehaviour
     {
