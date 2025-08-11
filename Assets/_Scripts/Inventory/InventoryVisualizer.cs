@@ -108,5 +108,12 @@ namespace Challenge.Inventory
 
             InventoryManager.Singleton.DropInventoryItem(selectedItem.CurrentSlot);
         }
+
+        // Get
+
+        public GridLayoutGroup GroupLayout
+        {
+            get { return gridLayout; }
+        }
     }
 }

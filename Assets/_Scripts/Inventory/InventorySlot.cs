@@ -2,6 +2,7 @@ using Challenge.Inventory.ScriptableObjects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Challenge.Inventory
 {
@@ -41,7 +42,9 @@ namespace Challenge.Inventory
 
             item.transform.SetParent(transform);
             item.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            item.transform.localScale = Vector3.one;
+
+            Vector3 targetScale = InventoryManager.Singleton.InventoryVisual.GroupLayout.cellSize / 100;
+            item.transform.localScale = targetScale;
 
             item.CurrentSlot = this;
         }
