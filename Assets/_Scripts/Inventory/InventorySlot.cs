@@ -53,9 +53,9 @@ namespace Challenge.Inventory
 
         public bool HasRoom(ItemSO itemType)
         {
-            if (currentItem != null && currentItem.GetItemInformation() != null)
+            if (currentItem != null && currentItem.ItemInformation != null)
             {
-                if (currentItem.GetItemInformation() == itemType && currentItem.CurrentItemCount < itemType.GetMaxStackCount())
+                if (currentItem.ItemInformation == itemType && currentItem.CurrentItemCount < itemType.GetMaxStackCount())
                 {
                     return true;
                 }
@@ -67,14 +67,14 @@ namespace Challenge.Inventory
         {
             return currentItem == null;
         }
-        
+
         private bool ValidatePlacement(InventoryItem item)
         {
             if (IsEmpty())
             {
                 return true;
             }
-            if (HasRoom(item.GetItemInformation()))
+            if (HasRoom(item.ItemInformation))
             {
                 return HandleStacking(item);
             }
@@ -83,7 +83,7 @@ namespace Challenge.Inventory
 
         private bool HandleStacking(InventoryItem item)
         {
-            int maxStack = item.GetItemInformation().GetMaxStackCount();
+            int maxStack = item.ItemInformation.GetMaxStackCount();
             int spaceLeft = maxStack - currentItem.CurrentItemCount;
 
             int amountToAdd = Mathf.Min(spaceLeft, item.CurrentItemCount);
@@ -106,9 +106,9 @@ namespace Challenge.Inventory
 
         // Get
 
-        public InventoryItem GetCurrentItemInSlot()
+        public InventoryItem CurrentItemInSlot
         {
-            return currentItem;
+            get { return currentItem; }
         }
     }
 }

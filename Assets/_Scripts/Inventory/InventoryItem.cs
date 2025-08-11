@@ -89,9 +89,9 @@ namespace Challenge.Inventory
             }
         }
 
-        public ItemSO GetItemInformation()
+        public ItemSO ItemInformation
         {
-            return itemInformation;
+            get { return itemInformation; }
         }
 
         public InventorySlot CurrentSlot

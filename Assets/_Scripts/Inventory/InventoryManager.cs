@@ -58,7 +58,7 @@ namespace Challenge.Inventory
 
         public void RemoveInventoryItem(InventorySlot slot)
         {
-           Destroy(slot.GetCurrentItemInSlot().gameObject);
+           Destroy(slot.CurrentItemInSlot.gameObject);
         }
 
         public void SetSlots(List<InventorySlot> generatedSlots)
