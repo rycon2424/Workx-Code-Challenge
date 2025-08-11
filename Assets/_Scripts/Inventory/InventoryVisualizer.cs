@@ -17,10 +17,19 @@ namespace Challenge.Inventory
         [SerializeField] private RectTransform panelSize;
         [SerializeField] private GameObject slotPrefab;
 
-        private List<GameObject> generatedEmptySlots = new List<GameObject>();
+        private InventoryManager inventoryManager;
+
+        private List<InventorySlot> generatedEmptySlots = new List<InventorySlot>();
+
+        private void Start()
+        {
+            inventoryManager = GetComponentInParent<InventoryManager>();
+
+            SetupGrid();
+        }
 
         [Button("Regenerate Grid")]
-        private void Start()
+        private void SetupGrid()
         {
             UpdateGridSlots();
             UpdateGridPanel();
@@ -48,15 +57,21 @@ namespace Challenge.Inventory
 
         private void UpdateGridSlots()
         {
-            foreach (GameObject slot in generatedEmptySlots)
-                Destroy(slot);
+            foreach (InventorySlot slot in generatedEmptySlots)
+                Destroy(slot.gameObject);
+
+            generatedEmptySlots.Clear();
 
             int totalSlots = rows * columns;
             for (int i = 0; i < totalSlots; i++)
             {
                 GameObject slot = Instantiate(slotPrefab, gridLayout.transform);
                 slot.name = $"Slot {i + 1}";
+
+                generatedEmptySlots.Add(slot.GetComponent<InventorySlot>());
             }
+
+            inventoryManager.RetrieveSlots(generatedEmptySlots);
         }
     }
 }

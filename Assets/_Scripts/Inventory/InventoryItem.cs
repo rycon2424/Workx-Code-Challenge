@@ -1,3 +1,5 @@
+using Challenge.Inventory.ScriptableObjects;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,14 +10,32 @@ namespace Challenge.Inventory
 {
     public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        [SerializeField] private Transform originalParent;
+        [Header("Item Info")]
+        [SerializeField, ReadOnly] private ItemSO itemInformation;
+        [Header("Item Art")]
+        [SerializeField] private Image itemArt;
+        [SerializeField] private Image itemBackground;
+
+        private InventorySlot currentSlot;
+        private Transform originalParent;
         private Canvas canvas;
         private CanvasGroup canvasGroup;
 
-        void Awake()
+        private void Start()
         {
             canvas = GetComponentInParent<Canvas>();
             canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        public void SetupItem(ItemSO itemInfo)
+        {
+            itemArt.sprite = itemInfo.GetItemArt();
+            itemBackground.color = itemInfo.GetItemColor();
+        }
+
+        public void SetCurrentSlot(InventorySlot slot)
+        {
+            currentSlot = slot;
         }
 
         // Events

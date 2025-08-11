@@ -1,6 +1,5 @@
+using Challenge.Inventory.ScriptableObjects;
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,16 +7,49 @@ namespace Challenge.Inventory
 {
     public class InventorySlot : MonoBehaviour, IDropHandler
     {
-        [ReadOnly, SerializeField] private GameObject currentItem;
+        [ReadOnly, SerializeField] private ItemSO currentItem;
+        [ReadOnly, SerializeField] private int currentItemCount = 0;
 
         public void OnDrop(PointerEventData eventData)
         {
-            GameObject item = eventData.pointerDrag;
+            InventoryItem item = eventData.pointerDrag.GetComponent<InventoryItem>();
             if (item != null)
             {
-                item.transform.SetParent(transform);
-                item.transform.SetPositionAndRotation(transform.position, transform.rotation);
+                if (ValidatePlacement())
+                {
+                    SetItemToSlot(item);
+                }
             }
+        }
+
+        public void SetItem(ItemSO item)
+        {
+            currentItem = item;
+        }
+
+        public void ClearSlot()
+        {
+            currentItem = null;
+            currentItemCount = 0;
+        }
+
+        public void SetItemToSlot(InventoryItem item)
+        {
+            item.transform.SetParent(transform);
+            item.transform.SetPositionAndRotation(transform.position, transform.rotation);
+            item.transform.localScale = Vector3.one;
+
+            item.SetCurrentSlot(this);
+        }
+
+        public bool IsEmpty()
+        {
+            return currentItem == null;
+        }
+
+        private bool ValidatePlacement()
+        {
+            return true;
         }
     }
 }
