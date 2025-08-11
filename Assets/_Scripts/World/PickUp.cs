@@ -24,6 +24,7 @@ namespace Challenge.World.Interactables
             Setup();
         }
 
+        [Button("Reload")]
         private void Setup()
         {
             itemSprite.sprite = itemInfo.GetItemArt();
