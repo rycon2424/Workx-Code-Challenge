@@ -17,14 +17,10 @@ namespace Challenge.Inventory
         [SerializeField] private RectTransform panelSize;
         [SerializeField] private GameObject slotPrefab;
 
-        private InventoryManager inventoryManager;
-
         private List<InventorySlot> generatedEmptySlots = new List<InventorySlot>();
 
         private void Start()
         {
-            inventoryManager = GetComponentInParent<InventoryManager>();
-
             SetupGrid();
         }
 
@@ -71,7 +67,7 @@ namespace Challenge.Inventory
                 generatedEmptySlots.Add(slot.GetComponent<InventorySlot>());
             }
 
-            inventoryManager.RetrieveSlots(generatedEmptySlots);
+            InventoryManager.Singleton.SetSlots(generatedEmptySlots);
         }
     }
 }

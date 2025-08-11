@@ -23,5 +23,10 @@ namespace Challenge.Inventory.ScriptableObjects
         {
             return backgroundColor;
         }
+
+        public int GetMaxStackCount()
+        {
+            return maxStackCount;
+        }
     }
 }

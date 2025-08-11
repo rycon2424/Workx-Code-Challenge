@@ -7,49 +7,108 @@ namespace Challenge.Inventory
 {
     public class InventorySlot : MonoBehaviour, IDropHandler
     {
-        [ReadOnly, SerializeField] private ItemSO currentItem;
-        [ReadOnly, SerializeField] private int currentItemCount = 0;
+        [ReadOnly, SerializeField] private InventoryItem currentItem;
 
         public void OnDrop(PointerEventData eventData)
         {
             InventoryItem item = eventData.pointerDrag.GetComponent<InventoryItem>();
             if (item != null)
             {
-                if (ValidatePlacement())
+                if (ValidatePlacement(item))
                 {
-                    SetItemToSlot(item);
+                    item.CleanupCurrentSlot();
+
+                    UpdateItemInSlot(item);
                 }
             }
         }
 
-        public void SetItem(ItemSO item)
+        public void AddItemToSlot(InventoryItem item)
         {
             currentItem = item;
+
+            currentItem.CurrentItemCount = 1;
         }
 
         public void ClearSlot()
         {
             currentItem = null;
-            currentItemCount = 0;
         }
 
-        public void SetItemToSlot(InventoryItem item)
+        public void UpdateItemInSlot(InventoryItem item)
         {
+            currentItem = item;
+
             item.transform.SetParent(transform);
             item.transform.SetPositionAndRotation(transform.position, transform.rotation);
             item.transform.localScale = Vector3.one;
 
-            item.SetCurrentSlot(this);
+            item.CurrentSlot = this;
+        }
+
+        public void IncreaseStackCount()
+        {
+            currentItem.CurrentItemCount++;
+        }
+
+        public bool HasRoom(ItemSO itemType)
+        {
+            if (currentItem != null && currentItem.GetItemInformation() != null)
+            {
+                if (currentItem.GetItemInformation() == itemType && currentItem.CurrentItemCount < itemType.GetMaxStackCount())
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public bool IsEmpty()
         {
             return currentItem == null;
         }
-
-        private bool ValidatePlacement()
+        
+        private bool ValidatePlacement(InventoryItem item)
         {
+            if (IsEmpty())
+            {
+                return true;
+            }
+            if (HasRoom(item.GetItemInformation()))
+            {
+                return HandleStacking(item);
+            }
+            return false;
+        }
+
+        private bool HandleStacking(InventoryItem item)
+        {
+            int maxStack = item.GetItemInformation().GetMaxStackCount();
+            int spaceLeft = maxStack - currentItem.CurrentItemCount;
+
+            int amountToAdd = Mathf.Min(spaceLeft, item.CurrentItemCount);
+
+            currentItem.CurrentItemCount += amountToAdd;
+
+            item.CurrentItemCount -= amountToAdd;
+
+            if (item.CurrentItemCount <= 0)
+            {
+                InventoryManager.Singleton.RemoveInventoryItem(item.CurrentSlot);
+            }
+            else
+            {
+                return false;
+            }
+
             return true;
+        }
+
+        // Get
+
+        public InventoryItem GetCurrentItemInSlot()
+        {
+            return currentItem;
         }
     }
 }

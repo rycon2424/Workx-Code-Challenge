@@ -1,7 +1,6 @@
 using Challenge.Inventory.ScriptableObjects;
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -11,8 +10,11 @@ namespace Challenge.Inventory
     public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         [Header("Item Info")]
+        [SerializeField, ReadOnly] private int currentItemCount = 0;
         [SerializeField, ReadOnly] private ItemSO itemInformation;
-        [Header("Item Art")]
+
+        [Header("Item References")]
+        [SerializeField] private TMP_Text stackCount;
         [SerializeField] private Image itemArt;
         [SerializeField] private Image itemBackground;
 
@@ -29,14 +31,24 @@ namespace Challenge.Inventory
 
         public void SetupItem(ItemSO itemInfo)
         {
+            itemInformation = itemInfo;
+
             itemArt.sprite = itemInfo.GetItemArt();
             itemBackground.color = itemInfo.GetItemColor();
+
+            UpdateStackCount();
         }
 
-        public void SetCurrentSlot(InventorySlot slot)
+        public void CleanupCurrentSlot()
         {
-            currentSlot = slot;
+            currentSlot.ClearSlot();
         }
+
+        private void UpdateStackCount()
+        {
+            stackCount.text = currentItemCount.ToString();
+        }
+
 
         // Events
 
@@ -63,6 +75,29 @@ namespace Challenge.Inventory
                 transform.SetParent(originalParent);
                 transform.SetPositionAndRotation(originalParent.position, originalParent.rotation);
             }
+        }
+
+        // Getters/Setters
+
+        public int CurrentItemCount
+        {
+            get { return currentItemCount; }
+            set 
+            { 
+                currentItemCount = value;
+                UpdateStackCount();
+            }
+        }
+
+        public ItemSO GetItemInformation()
+        {
+            return itemInformation;
+        }
+
+        public InventorySlot CurrentSlot
+        {
+            get { return currentSlot; }
+            set { currentSlot = value; }
         }
     }
 }
